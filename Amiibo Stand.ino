@@ -1,7 +1,7 @@
 #include <WaveHC.h>
 #include <WaveUtil.h>
 #include <Wire.h>
-#include <Adafruit_NFCShield_I2C.h>
+#include <Adafruit_PN532.h>
 //#include <MemoryFree.h>
 
 //Loading Strings into PROGMEM to save RAM
@@ -179,7 +179,7 @@ const char string_160[] PROGMEM = "rover_s.wav";
 const char string_161[] PROGMEM = "wlink_s.wav";
 // Then set up a table to refer to your strings.
 
-const char* const string_table[] PROGMEM = 	   
+const char* const string_table[] PROGMEM =      
 {
     
   string_0,
@@ -348,10 +348,10 @@ const char* const string_table[] PROGMEM =
 
 char buffer[30];
 
-#define IRQ 6 // this trace must be cut and rewired!
-#define RESET 8
+#define PN532_IRQ 6 // this trace must be cut and rewired!
+#define PN532_RESET 3
 
-Adafruit_NFCShield_I2C nfc(IRQ, RESET);
+Adafruit_PN532 nfc(PN532_IRQ, PN532_RESET);
 
 SdReader card; // This object holds the information for the card
 FatVolume vol; // This holds the information for the partition on the card
@@ -1630,3 +1630,4 @@ void playfile(char *name) {
   // ok time to play!
   wave.play();
 }
+
